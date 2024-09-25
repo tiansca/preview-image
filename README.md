@@ -2,8 +2,17 @@
 
 图片预览插件，支持缩放、拖拽、旋转、实际尺寸、适应窗口、缩略图预览等功能
 
-```javascript
+## 安装
+
+1. npm安装：
+
+npm install preview-image-js
 import previewImage from 'preview-image-js'
+
+2. script引入
+<script src="https://unpkg.com/preview-image-js@1.0.0/dist/preview-image.min.js"></script>
+
+```javascript
 previewImage({
     index: 1, // 默认显示图片索引，默认为0
     images: ['https://xxx.jpg', "https://xxx.jpg"], // 图片地址数组，默认为空

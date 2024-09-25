@@ -1,9 +1,8 @@
-// index.d.ts
-//这里需要注意 'your-package-name' 需要和你 packge.json 文件中的name名字的值保持一致
 declare interface ImageItem {
     url: string;
     name?: string;
     type?: string;
+    id?: string | number;
 }
 declare module 'preview-image-js' {
     export default function previewImages(
@@ -14,8 +13,10 @@ declare module 'preview-image-js' {
             thumbnailDraggable?: boolean;
             delete?: boolean;
             download?: boolean;
-            onDelete?: (index: number, url: string) => void;
-            onDownload?: (index: number, url: string) => void;
+            onDelete?: (index: number, url: string, id: string | number) => void;
+            onDownload?: (index: number, url: string, id: string | number) => void;
+            onClose?: () => void;
+            onFileClick?: (index: number, url: string, id: string | number) => void;
             thumbnailTitleText?: string,
             maxZoomText?: string,
             minZoomText?: string,
@@ -30,5 +31,5 @@ declare module 'preview-image-js' {
             nextText?: string,
             prevText?: string
         }
-    ): void;
+    ): { closeDialog: () => void };
 }

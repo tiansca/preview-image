@@ -86,7 +86,7 @@
         img.classList.add('img-button')
         img.innerText = i
         img.onclick = function (e) {
-            previewImage({
+            const {closeDialog} = previewImage({
                 index: e.target.innerText,
                 images: imgUrls,
                 thumbnail: true,
@@ -96,7 +96,13 @@
                     // return Promise.reject('无权限')
                 },
                 delete: true,
+                onClose() {
+                    console.log('关闭弹窗')
+                },
                 download: true,
+                onFileClick: function (index, url, id) {
+                    console.log('点击', index, url, id)
+                }
                 // thumbnailTitleText: 'overview',
                 // maxZoomText: 'It\'s already the maximum size',
                 // minZoomText: 'It\'s already the smallest',
@@ -111,6 +117,7 @@
                 // nextText: 'next',
                 // prevText: 'prev'
             })
+            console.log(closeDialog)
         }
         document.body.querySelector('#img-list').appendChild(img)
     }
