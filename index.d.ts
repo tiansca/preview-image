@@ -9,14 +9,18 @@ declare module 'preview-image-js' {
         option: {
             images: string[] | ImageItem[];
             index?: number;
+            fileType?: 'image' | 'auto';
+            loop?: boolean;
             thumbnail?: boolean;
             thumbnailDraggable?: boolean;
+            toolbar?: boolean;
             delete?: boolean;
             download?: boolean;
             onDelete?: (index: number, url: string, id: string | number) => void;
             onDownload?: (index: number, url: string, id: string | number) => void;
             onClose?: () => void;
             onFileClick?: (index: number, url: string, id: string | number) => void;
+            buttonTooltip?: boolean,
             thumbnailTitleText?: string,
             maxZoomText?: string,
             minZoomText?: string,
@@ -29,7 +33,9 @@ declare module 'preview-image-js' {
             downloadText?: string,
             deleteText?: string,
             nextText?: string,
-            prevText?: string
+            prevText?: string,
+            firstText?: string,
+            lastText?: string
         }
     ): { closeDialog: () => void };
 }

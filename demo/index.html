@@ -31,6 +31,7 @@
 <div style="height: 300px;background-color: olivedrab"></div>
 </body>
 <script src="../dist/index.js"></script>
+<script src="../icon.js"></script>
 <script>
     const imgUrls = [{
         url: './img/1.jpeg',
@@ -91,6 +92,8 @@
                 images: imgUrls,
                 thumbnail: true,
                 thumbnailDraggable: true,
+                loop: false,
+                buttonTooltip: false,
                 onDelete: function (index, url) {
                     console.log('删除', index)
                     // return Promise.reject('无权限')
@@ -102,7 +105,9 @@
                 download: true,
                 onFileClick: function (index, url, id) {
                     console.log('点击', index, url, id)
-                }
+                },
+                toolbar: true,
+                fileType: 'auto'
                 // thumbnailTitleText: 'overview',
                 // maxZoomText: 'It\'s already the maximum size',
                 // minZoomText: 'It\'s already the smallest',

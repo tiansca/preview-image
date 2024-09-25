@@ -1,6 +1,6 @@
 {
   "name": "preview-image-js",
-  "version": "1.1.2",
+  "version": "1.1.5",
   "main": "dist/index.js",
   "description": "Picture preview pop-up window",
   "keywords": ["picture", "preview", "image", "js"],
@@ -10,8 +10,10 @@
   },
   "files": [
     "README.md",
+    "README.EN.md",
     "dist",
     "index.d.ts",
+    "icon.js",
     "package.json"
   ],
   "author": "myrontian",
