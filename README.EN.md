@@ -38,6 +38,7 @@ const { closeDialog } = previewImage({
     onFileClick: function (url, index, id, item) { //click on the callback of the non-image format file, where you can jump and so on
         window.open (' preview url')//to open the preview link
     },
+    clickableFileTypes: ['pdf'], // click on the file type to be opened, default is all
     buttonTooltip: true, // Whether to display the button tooltip, default is true
     // the following is the language configuration, you can customize, the default is Chinese
     thumbnailTitleText: 'Overview' ,//thumbnail title, defaults to '缩略图'
@@ -54,7 +55,8 @@ const { closeDialog } = previewImage({
     nextText: 'next' , //next prompt, defaults to '上一张'
     prevText: 'Prev', //previous prompt, defaults to '下一张'
     firstText: "It's already the first one" , //first prompt, defaults to '已到第一个'
-    lastText: "It's already the last one" //last prompt, defaults to '已到最后一个'
+    lastText: "It's already the last one", //last prompt, defaults to '已到最后一个'
+    closeText: 'Close' //close prompt, defaults to '关闭'
 })
 closedialog ()//This method can close the preview window, such as listening to the return key on the mobile side, in the case of the return key intercept, the return key can be called to close the preview window
 

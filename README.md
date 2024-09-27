@@ -42,6 +42,7 @@ const { closeDialog } = previewImage({
     onFileClick: function (url, index, id, item) { // 点击非图片格式文件的回调，可以在此处做跳转等操作
         window.open('preview url') // 可以打开预览链接
     },
+    clickableFileTypes: ['pdf'], // 点击非图片格式文件时，只允许点击这些文件类型，会设置hover样式，当onFileClick不为空时生效，默认为all，即所有类型都可以点击
     buttonTooltip: true, // 是否显示按钮提示，默认为true，若设为false，则不会显示按钮提示
     // 以下是语言配置，可以自定义，默认为中文
     thumbnailTitleText: 'overview', // 缩略图标题，默认为’缩略图‘
@@ -58,7 +59,8 @@ const { closeDialog } = previewImage({
     nextText: 'next', // 下一张提示，默认为’下一张‘
     prevText: 'prev', // 上一张提示，默认为’上一张‘
     firstText: "It's already the first one", // 第一张提示，默认为’已到第一个‘
-    lastText: "It's already the last one" // 最后一张提示，默认为’已到最后一个‘
+    lastText: "It's already the last one", // 最后一张提示，默认为’已到最后一个‘
+    closeText: "Close" // 关闭提示，默认为’关闭‘
 })
 
 closeDialog() // 该方法可以关闭预览窗口，比如在移动端监听返回键，在返回键拦截的情况下，点击返回键可以调用该方法关闭预览窗口

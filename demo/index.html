@@ -87,19 +87,19 @@
         img.classList.add('img-button')
         img.innerText = i
         img.onclick = function (e) {
-            const {closeDialog} = previewImage({
+            var previewObj = previewImage({
                 index: e.target.innerText,
                 images: imgUrls,
                 thumbnail: true,
                 thumbnailDraggable: true,
                 loop: false,
-                buttonTooltip: false,
+                buttonTooltip: true,
                 onDelete: function (index, url) {
                     console.log('删除', index)
                     // return Promise.reject('无权限')
                 },
                 delete: true,
-                onClose() {
+                onClose:function () {
                     console.log('关闭弹窗')
                 },
                 download: true,
@@ -122,7 +122,7 @@
                 // nextText: 'next',
                 // prevText: 'prev'
             })
-            console.log(closeDialog)
+            console.log(previewObj)
         }
         document.body.querySelector('#img-list').appendChild(img)
     }

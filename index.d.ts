@@ -20,6 +20,7 @@ declare module 'preview-image-js' {
             onDownload?: (index: number, url: string, id: string | number) => void;
             onClose?: () => void;
             onFileClick?: (index: number, url: string, id: string | number) => void;
+            clickableFileTypes?: string[] | 'all';
             buttonTooltip?: boolean,
             thumbnailTitleText?: string,
             maxZoomText?: string,
@@ -35,7 +36,8 @@ declare module 'preview-image-js' {
             nextText?: string,
             prevText?: string,
             firstText?: string,
-            lastText?: string
+            lastText?: string,
+            closeText?: string
         }
     ): { closeDialog: () => void };
 }

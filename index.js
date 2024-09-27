@@ -574,12 +574,15 @@ imageViewer.insertStyle(`
             transform: rotate(360deg);
         }
     }
+    svg[class^="fonticon"]{
+        pointer-events: none;
+    }
     svg[name^="fonticon"] text, svg[name^="fonticon"] text tspan{
         text-anchor: start;
         dominant-baseline: initial;
         font-size: 20px;
     }
-    .preview-hot-zone:hover>.preview-file-name{
+    .preview-hot-zone.active:hover>.preview-file-name{
         text-decoration: underline;
     }
 `);
@@ -630,6 +633,10 @@ imageViewer.getFileIcon = function (extName) {
         return `#preview_img_icon-load-error`
     }
     return `${baseIconName}other` //preview_img_color-other
+}
+
+imageViewer.ZLang = self.ZLang || function (key) {
+    return key
 }
 
 function previewImage (option) {
@@ -721,6 +728,8 @@ function previewImage (option) {
     };
     const closeHandler = option.onClose || null
     const fileClickHandler = option.onFileClick || null
+    // imageViewer.clickableFileTypes = option.clickableFileTypes || ['all']
+    imageViewer.clickableFileTypes = option.clickableFileTypes || ['pdf']
     let oldIndex = index;
     let zoom = 1
     let oldZoom = 1
@@ -732,7 +741,7 @@ function previewImage (option) {
     let fullyVisible = false;
     let thumbnailClosed = false // 是否关闭小图
     let dialog =imageViewer.createElement("div", "preview-dialog", imageViewer.preViewStyle.dialog); // 创建弹窗元素
-    let closeBtn =imageViewer.createElement("div", "close-btn preview-operate-button box-shadow hover", imageViewer.preViewStyle.closeBtn, "#svg-icon#:close"); // 关闭按钮
+    let closeBtn =imageViewer.createElement("div", "close-btn preview-operate-button box-shadow hover bottom-tooltip", imageViewer.preViewStyle.closeBtn, "#svg-icon#:close"); // 关闭按钮
     let prevBtn =imageViewer.createElement("div", "prev-btn preview-operate-button box-shadow hover", {...imageViewer.preViewStyle.preBtn, transform: 'translateY(-50%)', left: '20px'}, "#svg-icon#:prev"); // 上一张按钮
     let nextBtn =imageViewer.createElement("div", "next-btn preview-operate-button box-shadow hover", {...imageViewer.preViewStyle.preBtn, right: '20px', transform: 'translateY(-50%)'}, "#svg-icon#:next"); // 下一张按钮
     const indexText =imageViewer.createElement("div", "preview-index", imageViewer.preViewStyle.index, `${index + 1}/${images.length}`); // 图片索引
@@ -764,29 +773,32 @@ function previewImage (option) {
     // const rotateRightText = option.rotateRightText || '右旋转';
     // const downloadText = option.downloadText || '下载';
     // const deleteText = option.deleteText || '删除';
-    // const nextText = option.nextText || '下一张';
-    // const prevText = option.prevText || '上一张';
+    // const nextText = option.nextText || '';
+    // const prevText = option.prevText || '';
     // const thumbnailTitleText = option.thumbnailTitleText || '概览图';
     // const firstOneText = option.firstText || '已到第一个';
     // const lastOneText = option.lastText || '已到最后一个';
+    // const closeText = option.closeText || '';
     const maxZoomText = option.maxZoomText || '';
     const minZoomText = option.minZoomText || '';
-    const fitText = option.fitText || '';
-    const actualSizeText = option.actualSizeText || '';
-    const zoomInText = option.zoomInText || '';
-    const zoomOutText = option.zoomOutText || '';
-    const rotateLeftText = option.rotateLeftText || '';
-    const rotateRightText = option.rotateRightText || '';
-    const downloadText = option.downloadText || '';
-    const deleteText = option.deleteText || '';
+    const fitText = option.fitText || imageViewer.ZLang('适应屏幕');
+    const actualSizeText = option.actualSizeText || imageViewer.ZLang('原始尺寸');
+    const zoomInText = option.zoomInText || imageViewer.ZLang('放大');
+    const zoomOutText = option.zoomOutText || imageViewer.ZLang('缩小');
+    const rotateLeftText = option.rotateLeftText || imageViewer.ZLang('逆时针旋转90°');
+    const rotateRightText = option.rotateRightText || imageViewer.ZLang('顺时针旋转90°');
+    const downloadText = option.downloadText || imageViewer.ZLang('下载');
+    const deleteText = option.deleteText || imageViewer.ZLang('删除');
     const nextText = option.nextText || '';
     const prevText = option.prevText || '';
-    const thumbnailTitleText = option.thumbnailTitleText || '概览图';
+    const thumbnailTitleText = option.thumbnailTitleText || imageViewer.ZLang('概览图');
     const firstOneText = option.firstText || '';
     const lastOneText = option.lastText || '';
+    const closeText = option.closeText || '';
     if (buttonTooltip) {
         prevBtn.setAttribute('data-content', prevText)
         nextBtn.setAttribute('data-content', nextText)
+        closeBtn.setAttribute('data-content', closeText);
     }
     thumbnailTitle.innerText = thumbnailTitleText
     thumbnailTitle.setAttribute('title', thumbnailTitleText)
@@ -909,7 +921,7 @@ function previewImage (option) {
             } else {
                 updateThumbnailImg()
             }
-        }, 210)
+        }, 250)
     }
     // 放大
     function zoomIn () {
@@ -924,17 +936,6 @@ function previewImage (option) {
             return
         }
         let temZoom = zoom;
-        // if (zoom <= 0.03) {
-        //     temZoom += 0.01
-        // } else if (zoom < 0.05) {
-        //     temZoom = 0.05
-        // } else if (zoom <= 0.3) {
-        //     temZoom += 0.05
-        // } else if (zoom <= 0.45) {
-        //     temZoom = imageViewer.mul(zoom, 1.2)
-        // } else {
-        //     temZoom = imageViewer.mul(zoom, 1.15);
-        // }
         temZoom = imageViewer.mul(zoom, 1.25);
         if (temZoom > maxZoom) {
             temZoom = maxZoom
@@ -957,17 +958,6 @@ function previewImage (option) {
             return
         }
         let temZoom = zoom;
-        // if (zoom <= 0.03) {
-        //     temZoom -= 0.01
-        // } else if (zoom <= 0.05) {
-        //     temZoom = 0.03
-        // } else if (zoom <= 0.3) {
-        //     temZoom = zoom.toFixed(2) - 0.05
-        // } else if (zoom <= 0.45) {
-        //     temZoom = imageViewer.divide(zoom, 1.2)
-        // } else {
-        //     temZoom = imageViewer.divide(zoom, 1.15);
-        // }
         temZoom = imageViewer.divide(zoom, 1.25);
         oldZoom = zoom;
         if (temZoom < minZoom) {
@@ -1008,7 +998,7 @@ function previewImage (option) {
         setImageTransform()
     }
     // 限制拖动范围
-    function limitDragRange (e) {
+    function limitDragRange (again = false) {
         let flag = false
         const imageElement = contentWrapper.children[index].querySelector('img');
         if (!imageElement) {
@@ -1554,19 +1544,16 @@ function previewImage (option) {
         } else {
             // 展示图标和名称
             const wrap = imageViewer.createElement("div", "preview-img-wrapper", {...imageViewer.preViewStyle.imageWrap, flexDirection: 'column' });
-            const hotZone = imageViewer.createElement("div", "preview-hot-zone active", imageViewer.preViewStyle.hotZone);
+            const hotZone = imageViewer.createElement("div", "preview-hot-zone", imageViewer.preViewStyle.hotZone);
             const icon = imageViewer.createElement("div", "preview-icon", imageViewer.preViewStyle.fileIcon, `#svg-file-icon#:${ext}`);
             const fileName = imageViewer.createElement("div", "preview-file-name", imageViewer.preViewStyle.fileName, imageNames[i])
-            if (fileClickHandler) {
+            // 支持文件预览
+            if (fileClickHandler && imageViewer.clickableFileTypes === 'all' || imageViewer.clickableFileTypes.indexOf(ext) !== -1) {
+                hotZone.style.cursor = 'pointer'
+                hotZone.classList.add('active')
                 hotZone.addEventListener('click', () => {
                     fileClickHandler(index, images[index], imageIds[index], rawImages[index])
                 })
-            }
-            // 支持文件预览
-            const types = ["txt", "tif", "tiff", "xls", "xlsx", "ppt", "pptx", "pdf", "doc", "docx"]
-            if (types.indexOf(ext) !== -1) {
-                hotZone.style.cursor = 'pointer'
-                hotZone.classList.add('active')
             }
             hotZone.appendChild(icon)
             hotZone.appendChild(fileName)
@@ -1593,6 +1580,7 @@ function previewImage (option) {
         rotateRightBtn.setAttribute('data-content', rotateRightText)
         downloadBtn.setAttribute('data-content', downloadText)
         deleteBtn.setAttribute('data-content', deleteText)
+        fitScreenBtn.setAttribute('data-content', actualSizeText)
     }
 
     // 绑定事件
@@ -1641,6 +1629,11 @@ function previewImage (option) {
                     setImageOffset()
                     setImageTransform()
                     imageSizeCheck()
+                }
+                // 删除后当只剩一张时，隐藏翻页按钮
+                if (images.length === 1) {
+                    prevBtn.style.display = 'none'
+                    nextBtn.style.display = 'none'
                 }
             } catch (e) {
                 const msg = e.message || e.error || e.msg || e
@@ -1691,7 +1684,9 @@ function previewImage (option) {
     }, 50)
     window.addEventListener('resize', resizeHandler)
     // 监听滚动
+    // 滚轮停止
     let scrollTimer = null
+    let againLimitTimer = null
     const scrollHandler = imageViewer.throttle((e) => {
         if (!dialog) {
             return
@@ -1702,9 +1697,6 @@ function previewImage (option) {
         // ie关闭动画，ie下短时间内重复触发动画会忽大忽小地跳跃
         const isIe = !!window.ActiveXObject || "ActiveXObject" in window
         const imageElement = contentWrapper.children[index].querySelector('img');
-        if (isIe) {
-            imageElement.style.transition = 'transform 0s ease, top 0s ease, left 0s ease'
-        }
         let flag = false
         if (deltaY < 0 && !ctrlKey) {
             // 向下
@@ -1716,12 +1708,25 @@ function previewImage (option) {
             zoomIn()
         }
         if (flag && isIe) {
+            imageElement.style.transition = 'transform 0 ease, top 0s ease, left 0s ease'
             if (scrollTimer) {
                 clearTimeout(scrollTimer)
             }
             scrollTimer = setTimeout(() => {
-                imageElement.style.transition = 'transform .2s ease, top 0.2s ease, left 0.2s ease'
+                // 恢复动画
+                !isIe && (imageElement.style.transition = 'transform .2s ease, top 0.2s ease, left 0.2s ease')
+                scrollTimer = null
             }, 100)
+        }
+        if(flag) {
+            // 再次更新图片位置
+            if (againLimitTimer) {
+                clearTimeout(againLimitTimer)
+            }
+            againLimitTimer = setTimeout(function () {
+                limitDragRange()
+                againLimitTimer = null
+            }, 500)
         }
     }, 50)
     window.addEventListener('mousewheel', scrollHandler, false)

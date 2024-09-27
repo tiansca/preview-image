@@ -3,8 +3,8 @@ const path = require('path')
 module.exports = {
     mode: 'none', // 因为默认是production 默认会进行压缩
     entry: {
-        "index": ['./index-base.js'],
-        "index.min": [ './index-base.js']
+        "index": ['./index.js'],
+        "index.min": [ './index.js']
     },
     output: {
         filename: "[name].js",
