@@ -1,5 +1,7 @@
 // 样式
 const imageViewer = {}
+imageViewer.backgroundImage = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAIAAAAlC+aJAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAE7mlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNy4xLWMwMDAgNzkuYTg3MzFiOSwgMjAyMS8wOS8wOS0wMDozNzozOCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iIHhtbG5zOnBob3Rvc2hvcD0iaHR0cDovL25zLmFkb2JlLmNvbS9waG90b3Nob3AvMS4wLyIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0RXZ0PSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VFdmVudCMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDIzLjAgKFdpbmRvd3MpIiB4bXA6Q3JlYXRlRGF0ZT0iMjAyNC0wOS0yN1QxMzoyMToxOCswODowMCIgeG1wOk1vZGlmeURhdGU9IjIwMjQtMDktMjdUMTM6MjI6MjIrMDg6MDAiIHhtcDpNZXRhZGF0YURhdGU9IjIwMjQtMDktMjdUMTM6MjI6MjIrMDg6MDAiIGRjOmZvcm1hdD0iaW1hZ2UvcG5nIiBwaG90b3Nob3A6Q29sb3JNb2RlPSIzIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOmFjNGY2NjNlLWRjMmQtNmE0MC1hZGY5LTcwMTc4YTM5YTdkNyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDphYzRmNjYzZS1kYzJkLTZhNDAtYWRmOS03MDE3OGEzOWE3ZDciIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDphYzRmNjYzZS1kYzJkLTZhNDAtYWRmOS03MDE3OGEzOWE3ZDciPiA8eG1wTU06SGlzdG9yeT4gPHJkZjpTZXE+IDxyZGY6bGkgc3RFdnQ6YWN0aW9uPSJjcmVhdGVkIiBzdEV2dDppbnN0YW5jZUlEPSJ4bXAuaWlkOmFjNGY2NjNlLWRjMmQtNmE0MC1hZGY5LTcwMTc4YTM5YTdkNyIgc3RFdnQ6d2hlbj0iMjAyNC0wOS0yN1QxMzoyMToxOCswODowMCIgc3RFdnQ6c29mdHdhcmVBZ2VudD0iQWRvYmUgUGhvdG9zaG9wIDIzLjAgKFdpbmRvd3MpIi8+IDwvcmRmOlNlcT4gPC94bXBNTTpIaXN0b3J5PiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PsXxByUAAAB9SURBVGiB7dfBCcQgAEXBzZKO7L8EazINmPOLMHMULw9B+Nda67cz59yejzE+df+/PT2IgJqAmoDafcp//3b/+BcQUBNQE1C77IGYgJqAmoCaPVATUBNQE1CzB2oCagJqAmr2QE1ATUBNQM0eqAmoCagJqNkDNQE1ATUBtQfspmoVNCx+0wAAAABJRU5ErkJggg=='
+imageViewer.backgroundSize = 64
 imageViewer.preViewStyle = {
     dialog: {
         width: '100vw',
@@ -80,10 +82,13 @@ imageViewer.preViewStyle = {
     image: {
         // maxWidth: '100%',
         width: 'auto',
-        transition: 'transform .2s ease, top 0.2s ease, left, 0.2s ease',
+        transition: 'transform .2s ease, top 0.2s ease, left, 0.2s ease, background',
         position: 'relative',
         userSelect: 'none',
-        margin: 0
+        margin: 0,
+        backgroundImage: `url(${imageViewer.backgroundImage})`,
+        backgroundRepeat: 'repeat',
+        backgroundSize: `${imageViewer.backgroundSize}px`
     },
     buttonWrap: {
         position: 'fixed',
@@ -193,7 +198,10 @@ imageViewer.preViewStyle = {
     },
     thumbnailImage: {
         userSelect: 'none',
-        margin: 0
+        margin: 0,
+        backgroundImage: `url(${imageViewer.backgroundImage})`,
+        backgroundRepeat: 'repeat',
+        backgroundSize: '10px 10px'
     },
     thumbnailCloseButton: {
         position: 'absolute',
@@ -690,8 +698,24 @@ function previewImage (option) {
     const showDownload = option.download !== undefined ? option.download : false;
     const showDelete = option.delete !== undefined ? option.delete : false;
     const downloadHandler = option.onDownload || function (index, url) {
-        // 判断IE浏览器
-        if (navigator?.msSaveBlob) {
+        function downloadA(data) {
+            // 默认下载事件
+            let aEl = document.createElement('a')
+            aEl.href = data ? URL.createObjectURL(data) : url
+            aEl.target = '_blank'
+            aEl.download = url && url.split ? url.split('/').pop() : ''
+            aEl.click()
+            try {
+                aEl.remove()
+            } catch (e) {
+                aEl = null
+            }
+        }
+        // 判断url是否和当前地址同源
+        const isSameOrigin = url.indexOf(location.origin) === 0
+        console.log('isSameOrigin', isSameOrigin)
+        // 非同源，或者ie,通过http请求下载
+        if (!isSameOrigin || navigator?.msSaveBlob) {
             const xhr = new XMLHttpRequest();
             xhr.open("GET", url); // 异步
             xhr.responseType = "blob"; // blob 类型
@@ -701,26 +725,18 @@ function previewImage (option) {
                     downloadA()
                 } else {
                     const blob = new Blob([xhr.response]);
-                    navigator?.msSaveBlob(blob, url.split('/').pop());
+                    if (navigator?.msSaveBlob) {
+                        navigator?.msSaveBlob(blob, url.split('/').pop());
+                    } else {
+                        downloadA(blob)
+                    }
+
                 }
             }
             xhr.onerror = function () {
-                downloadA()
+                downloadA() // 跨域下载失败，使用a标签下载
             }
             return
-        }
-        function downloadA() {
-            // 默认下载事件
-            let aEl = document.createElement('a')
-            aEl.href = url
-            aEl.target = '_blank'
-            aEl.download = url && url.split ? url.split('/').pop() : ''
-            aEl.click()
-            try {
-                aEl.remove()
-            } catch (e) {
-                aEl = null
-            }
         }
         downloadA()
     };
@@ -885,6 +901,7 @@ function previewImage (option) {
         // 获取当前的图片元素
         const imageElement = contentWrapper.children[targetImageIndex].querySelector('img');
         imageElement.style.transform = `scale3d(${zoom}, ${zoom}, ${zoom}) rotate(${rotate}deg)`;
+        imageElement.style.backgroundSize = imageViewer.backgroundSize / zoom + 'px';
         if ((offsetY || offsetX) && zoom !== oldZoom) {
             offsetY = offsetY / oldZoom * zoom
             offsetX = offsetX / oldZoom * zoom
@@ -1092,7 +1109,7 @@ function previewImage (option) {
             imageElement.style.cursor = 'move';
         }
         // 开启top、left动画
-        imageElement.style.transition = 'transform .2s ease, top 0.2s ease, left 0.2s ease'
+        imageElement.style.transition = 'transform .2s ease, top 0.2s ease, left 0.2s ease, background'
 
     }
     // 重置图片位置
@@ -1223,7 +1240,7 @@ function previewImage (option) {
             fitScreenOrOriginal('natural')
         }
         setTimeout(function (){
-            imageElement.style.transition = 'transform .2s ease, top 0.2s ease, left 0.2s ease'
+            imageElement.style.transition = 'transform .2s ease, top 0.2s ease, left 0.2s ease, background'
         })
     }
     // 图片加载完毕
@@ -1445,7 +1462,7 @@ function previewImage (option) {
     closeBtn.onclick = closeDialog
     dialog.appendChild(closeBtn);
     // 创建上一张、下一张按钮
-    prevBtn.onclick = function () {
+    function prevFn() {
         if (index === 0) {
             if (loop) {
                 oldIndex = index;
@@ -1469,7 +1486,8 @@ function previewImage (option) {
             showLoading()
         }
     }
-    nextBtn.onclick = function () {
+    prevBtn.onclick = prevFn
+    function nextFn() {
         if (index === images.length - 1) {
             if (loop) {
                 oldIndex = index;
@@ -1493,6 +1511,7 @@ function previewImage (option) {
             showLoading()
         }
     }
+    nextBtn.onclick = nextFn
     if (images.length > 1) {
         dialog.appendChild(prevBtn);
         dialog.appendChild(nextBtn);
@@ -1708,13 +1727,13 @@ function previewImage (option) {
             zoomIn()
         }
         if (flag && isIe) {
-            imageElement.style.transition = 'transform 0 ease, top 0s ease, left 0s ease'
+            imageElement.style.transition = 'none'
             if (scrollTimer) {
                 clearTimeout(scrollTimer)
             }
             scrollTimer = setTimeout(() => {
                 // 恢复动画
-                !isIe && (imageElement.style.transition = 'transform .2s ease, top 0.2s ease, left 0.2s ease')
+                !isIe && (imageElement.style.transition = 'transform .2s ease, top 0.2s ease, left 0.2s ease, background')
                 scrollTimer = null
             }, 100)
         }
@@ -1829,7 +1848,7 @@ function previewImage (option) {
             touchStartDistance = 0
             // 开启top和left动画
             const imageElement = contentWrapper.children[index].querySelector('img');
-            imageElement.style.transition = 'transform .2s ease, top 0.2s ease, left 0.2s ease'
+            imageElement.style.transition = 'transform .2s ease, top 0.2s ease, left 0.2s ease, background'
             setTimeout(setImageTransform, 210)
         }
     }
@@ -1878,7 +1897,12 @@ function previewImage (option) {
         }
     }
     return {
-        closeDialog
+        closeDialog,
+        next: nextFn,
+        prev: prevFn,
+        zoom: zoomFn,
+        rotateLeft: rotateLeft,
+        rotateRight: rotateRight
     }
 };
 
