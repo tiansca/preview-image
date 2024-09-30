@@ -86,7 +86,8 @@ imageViewer.preViewStyle = {
         position: 'relative',
         userSelect: 'none',
         margin: 0,
-        backgroundImage: `url(${imageViewer.backgroundImage})`,
+        // backgroundImage: `url(${imageViewer.backgroundImage})`,
+        backgroundColor: 'rgb(239, 239, 239)',
         backgroundRepeat: 'repeat',
         backgroundSize: `${imageViewer.backgroundSize}px`
     },
@@ -199,7 +200,8 @@ imageViewer.preViewStyle = {
     thumbnailImage: {
         userSelect: 'none',
         margin: 0,
-        backgroundImage: `url(${imageViewer.backgroundImage})`,
+        // backgroundImage: `url(${imageViewer.backgroundImage})`,
+        backgroundColor: 'rgb(239, 239, 239)',
         backgroundRepeat: 'repeat',
         backgroundSize: '10px 10px'
     },
@@ -659,16 +661,16 @@ function previewImage (option) {
         return
     }
     // 判断option是否为字符串
-    if (typeof option === 'string') {
-        try {
+    if (typeof option === 'string' && option[0] === '{') {
+        // try {
             // 尝试解析为JSON字符串
             option = JSON.parse(option);
-        } catch (e) {
-            // 将option作为url
-            option = {
-                images: [option]
-            }
-        }
+        // } catch (e) {
+        //     // 将option作为url
+        //     option = {
+        //         images: [option]
+        //     }
+        // }
     }
     let index = option.index !== undefined ? Number(option.index) : 0;
     imageViewer.fileType = option.fileType || 'auto';
@@ -705,11 +707,7 @@ function previewImage (option) {
             aEl.target = '_blank'
             aEl.download = url && url.split ? url.split('/').pop() : ''
             aEl.click()
-            try {
-                aEl.remove()
-            } catch (e) {
-                aEl = null
-            }
+            aEl = null
         }
         // 判断url是否和当前地址同源
         const isSameOrigin = url.indexOf(location.origin) === 0
@@ -1623,9 +1621,9 @@ function previewImage (option) {
     }
     if (showDelete) {
         buttonWrap.appendChild(deleteBtn);
-        deleteBtn.onclick = async function () {
-            try {
-                await deleteHandler(index, images[index], imageIds[index], rawImages[index])
+        deleteBtn.onclick = function () {
+            // try {
+                deleteHandler(index, images[index], imageIds[index], rawImages[index])
                 // 删除当前图片
                 const currImageElement = contentWrapper.children[index]
                 if (currImageElement) {
@@ -1654,14 +1652,15 @@ function previewImage (option) {
                     prevBtn.style.display = 'none'
                     nextBtn.style.display = 'none'
                 }
-            } catch (e) {
-                const msg = e.message || e.error || e.msg || e
-                if (msg && typeof msg === 'string') {
-                    imageViewer.toast(msg)
-                }
-                console.error('删除失败=>', e || '未知错误')
-            }
-
+                // 重置按钮状态
+                updateBtnStatus()
+            // } catch (e) {
+            //     const msg = e.message || e.error || e.msg || e
+            //     if (msg && typeof msg === 'string') {
+            //         imageViewer.toast(msg)
+            //     }
+            //     console.error('删除失败=>', e || '未知错误')
+            // }
         }
     }
     if (toolbar) {
