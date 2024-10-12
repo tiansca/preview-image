@@ -1,5 +1,8 @@
 # preview image
 Image preview plug-in, support for zoom, drag and drop, rotation, the actual size, adaptation window, thumbnail preview and other functions
+
+[中文文档](https://github.com/tiansca/preview-image/blob/main/README.md)
+
 ## install
 1. npm install:
 ```shell
@@ -7,12 +10,13 @@ npm install preview-image-js
 import previewImage from 'preview-image-js'
 ```
 
-2. script引入
+2. script import
 ```html
 <script src="https://tiansc.top/js/preview-image-js.js"></script>
 ```
 
 ## use
+Don't be scared, this plugin has very little code, only the 'images' attribute is required.
 
 ```javascript
 const { closeDialog } = previewImage({

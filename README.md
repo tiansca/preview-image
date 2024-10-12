@@ -2,6 +2,8 @@
 
 图片预览插件，支持缩放、拖拽、旋转、实际尺寸、适应窗口、缩略图预览等功能
 
+[English document](https://github.com/tiansca/preview-image/blob/main/README.EN.md)
+
 ## 安装
 
 1. npm安装：
@@ -17,6 +19,7 @@ import previewImage from 'preview-image-js'
 
 
 ## 使用
+不要被吓到，这个插件代码量非常少，只有images一个属性是必填项。
 
 ```javascript
 const { closeDialog } = previewImage({

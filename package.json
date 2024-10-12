@@ -1,7 +1,7 @@
 {
   "name": "preview-image-js",
-  "version": "1.1.5",
-  "main": "dist/index.js",
+  "version": "1.1.6",
+  "main": "dist/index.min.js",
   "description": "Picture preview pop-up window",
   "keywords": ["picture", "preview", "image", "js"],
   "scripts": {

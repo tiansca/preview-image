@@ -1,5 +1,7 @@
 // 样式
 const imageViewer = {}
+imageViewer.backgroundImage = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAIAAAAlC+aJAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAE7mlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNy4xLWMwMDAgNzkuYTg3MzFiOSwgMjAyMS8wOS8wOS0wMDozNzozOCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iIHhtbG5zOnBob3Rvc2hvcD0iaHR0cDovL25zLmFkb2JlLmNvbS9waG90b3Nob3AvMS4wLyIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0RXZ0PSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VFdmVudCMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDIzLjAgKFdpbmRvd3MpIiB4bXA6Q3JlYXRlRGF0ZT0iMjAyNC0wOS0yN1QxMzoyMToxOCswODowMCIgeG1wOk1vZGlmeURhdGU9IjIwMjQtMDktMjdUMTM6MjI6MjIrMDg6MDAiIHhtcDpNZXRhZGF0YURhdGU9IjIwMjQtMDktMjdUMTM6MjI6MjIrMDg6MDAiIGRjOmZvcm1hdD0iaW1hZ2UvcG5nIiBwaG90b3Nob3A6Q29sb3JNb2RlPSIzIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOmFjNGY2NjNlLWRjMmQtNmE0MC1hZGY5LTcwMTc4YTM5YTdkNyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDphYzRmNjYzZS1kYzJkLTZhNDAtYWRmOS03MDE3OGEzOWE3ZDciIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDphYzRmNjYzZS1kYzJkLTZhNDAtYWRmOS03MDE3OGEzOWE3ZDciPiA8eG1wTU06SGlzdG9yeT4gPHJkZjpTZXE+IDxyZGY6bGkgc3RFdnQ6YWN0aW9uPSJjcmVhdGVkIiBzdEV2dDppbnN0YW5jZUlEPSJ4bXAuaWlkOmFjNGY2NjNlLWRjMmQtNmE0MC1hZGY5LTcwMTc4YTM5YTdkNyIgc3RFdnQ6d2hlbj0iMjAyNC0wOS0yN1QxMzoyMToxOCswODowMCIgc3RFdnQ6c29mdHdhcmVBZ2VudD0iQWRvYmUgUGhvdG9zaG9wIDIzLjAgKFdpbmRvd3MpIi8+IDwvcmRmOlNlcT4gPC94bXBNTTpIaXN0b3J5PiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PsXxByUAAAB9SURBVGiB7dfBCcQgAEXBzZKO7L8EazINmPOLMHMULw9B+Nda67cz59yejzE+df+/PT2IgJqAmoDafcp//3b/+BcQUBNQE1C77IGYgJqAmoCaPVATUBNQE1CzB2oCagJqAmr2QE1ATUBNQM0eqAmoCagJqNkDNQE1ATUBtQfspmoVNCx+0wAAAABJRU5ErkJggg=='
+imageViewer.backgroundSize = 64
 imageViewer.preViewStyle = {
     dialog: {
         width: '100vw',
@@ -78,10 +80,14 @@ imageViewer.preViewStyle = {
     image: {
         // maxWidth: '100%',
         width: 'auto',
-        transition: 'transform .2s ease, top 0.2s ease, left, 0.2s ease',
+        transition: 'transform .2s ease, top 0.2s ease, left, 0.2s ease, background',
         position: 'relative',
         userSelect: 'none',
-        margin: 0
+        margin: 0,
+        backgroundImage: `url(${imageViewer.backgroundImage})`,
+        // backgroundColor: 'rgb(239, 239, 239)',
+        backgroundRepeat: 'repeat',
+        backgroundSize: `${imageViewer.backgroundSize}px`
     },
     buttonWrap: {
         position: 'fixed',
@@ -191,7 +197,11 @@ imageViewer.preViewStyle = {
     },
     thumbnailImage: {
         userSelect: 'none',
-        margin: 0
+        margin: 0,
+        backgroundImage: `url(${imageViewer.backgroundImage})`,
+        // backgroundColor: 'rgb(239, 239, 239)',
+        backgroundRepeat: 'repeat',
+        backgroundSize: '10px 10px'
     },
     thumbnailCloseButton: {
         position: 'absolute',
@@ -472,10 +482,10 @@ imageViewer.isVisible = function isVisible (container, target) {
     const targetRect = target.getBoundingClientRect();
     const parentRect = container.getBoundingClientRect();
     return (
-        targetRect.top - parentRect.top >= -0.1 &&
-        parentRect.bottom - targetRect.bottom >= -0.1 &&
-        targetRect.left - parentRect.left >= -0.1 &&
-        parentRect.right - targetRect.right >= -0.1
+      targetRect.top - parentRect.top >= -0.1 &&
+      parentRect.bottom - targetRect.bottom >= -0.1 &&
+      targetRect.left - parentRect.left >= -0.1 &&
+      parentRect.right - targetRect.right >= -0.1
     );
 }
 imageViewer.insertStyle = function(css) {
@@ -572,12 +582,15 @@ imageViewer.insertStyle(`
             transform: rotate(360deg);
         }
     }
+    svg[class^="fonticon"]{
+        pointer-events: none;
+    }
     svg[name^="fonticon"] text, svg[name^="fonticon"] text tspan{
         text-anchor: start;
         dominant-baseline: initial;
         font-size: 20px;
     }
-    .preview-hot-zone:hover>.preview-file-name{
+    .preview-hot-zone.active:hover>.preview-file-name{
         text-decoration: underline;
     }
 `);
@@ -630,6 +643,10 @@ imageViewer.getFileIcon = function (extName) {
     return `${baseIconName}other` //preview_img_color-other
 }
 
+imageViewer.ZLang = self.ZLang || function (key) {
+    return key
+}
+
 function previewImage (option) {
     /*option = {
         images: [],
@@ -642,10 +659,10 @@ function previewImage (option) {
         return
     }
     // 判断option是否为字符串
-    if (typeof option === 'string') {
+    if (typeof option === 'string' && option[0] === '{') {
         try {
-            // 尝试解析为JSON字符串
-            option = JSON.parse(option);
+        // 尝试解析为JSON字符串
+        option = JSON.parse(option);
         } catch (e) {
             // 将option作为url
             option = {
@@ -677,12 +694,24 @@ function previewImage (option) {
         })
     }
     const thumbnail = option.thumbnail !== undefined ? option.thumbnail : true;
-    const thumbnailDraggable = option.thumbnailDraggable !== undefined ? option.thumbnailDraggable : true;
+    const thumbnailDraggable = option.thumbnailDraggable !== undefined ? option.thumbnailDraggable : false;
     const showDownload = option.download !== undefined ? option.download : false;
     const showDelete = option.delete !== undefined ? option.delete : false;
     const downloadHandler = option.onDownload || function (index, url) {
-        // 判断IE浏览器
-        if (navigator?.msSaveBlob) {
+        function downloadA(data) {
+            // 默认下载事件
+            let aEl = document.createElement('a')
+            aEl.href = data ? URL.createObjectURL(data) : url
+            aEl.target = '_blank'
+            aEl.download = url && url.split ? url.split('/').pop() : ''
+            aEl.click()
+            aEl = null
+        }
+        // 判断url是否和当前地址同源
+        const isSameOrigin = url.indexOf(location.origin) === 0
+        console.log('isSameOrigin', isSameOrigin)
+        // 非同源，或者ie,通过http请求下载
+        if (!isSameOrigin || navigator?.msSaveBlob) {
             const xhr = new XMLHttpRequest();
             xhr.open("GET", url); // 异步
             xhr.responseType = "blob"; // blob 类型
@@ -692,26 +721,18 @@ function previewImage (option) {
                     downloadA()
                 } else {
                     const blob = new Blob([xhr.response]);
-                    navigator?.msSaveBlob(blob, url.split('/').pop());
+                    if (navigator?.msSaveBlob) {
+                        navigator?.msSaveBlob(blob, url.split('/').pop());
+                    } else {
+                        downloadA(blob)
+                    }
+
                 }
             }
             xhr.onerror = function () {
-                downloadA()
+                downloadA() // 跨域下载失败，使用a标签下载
             }
             return
-        }
-        function downloadA() {
-            // 默认下载事件
-            let aEl = document.createElement('a')
-            aEl.href = url
-            aEl.target = '_blank'
-            aEl.download = url && url.split ? url.split('/').pop() : ''
-            aEl.click()
-            try {
-                aEl.remove()
-            } catch (e) {
-                aEl = null
-            }
         }
         downloadA()
     };
@@ -719,6 +740,8 @@ function previewImage (option) {
     };
     const closeHandler = option.onClose || null
     const fileClickHandler = option.onFileClick || null
+    imageViewer.clickableFileTypes = option.clickableFileTypes || 'all'
+    // imageViewer.clickableFileTypes = option.clickableFileTypes || ['pdf']
     let oldIndex = index;
     let zoom = 1
     let oldZoom = 1
@@ -730,7 +753,7 @@ function previewImage (option) {
     let fullyVisible = false;
     let thumbnailClosed = false // 是否关闭小图
     let dialog =imageViewer.createElement("div", "preview-dialog", imageViewer.preViewStyle.dialog); // 创建弹窗元素
-    let closeBtn =imageViewer.createElement("div", "close-btn preview-operate-button box-shadow hover", imageViewer.preViewStyle.closeBtn, "#svg-icon#:close"); // 关闭按钮
+    let closeBtn =imageViewer.createElement("div", "close-btn preview-operate-button box-shadow hover bottom-tooltip", imageViewer.preViewStyle.closeBtn, "#svg-icon#:close"); // 关闭按钮
     let prevBtn =imageViewer.createElement("div", "prev-btn preview-operate-button box-shadow hover", {...imageViewer.preViewStyle.preBtn, transform: 'translateY(-50%)', left: '20px'}, "#svg-icon#:prev"); // 上一张按钮
     let nextBtn =imageViewer.createElement("div", "next-btn preview-operate-button box-shadow hover", {...imageViewer.preViewStyle.preBtn, right: '20px', transform: 'translateY(-50%)'}, "#svg-icon#:next"); // 下一张按钮
     const indexText =imageViewer.createElement("div", "preview-index", imageViewer.preViewStyle.index, `${index + 1}/${images.length}`); // 图片索引
@@ -762,29 +785,32 @@ function previewImage (option) {
     const rotateRightText = option.rotateRightText || '右旋转';
     const downloadText = option.downloadText || '下载';
     const deleteText = option.deleteText || '删除';
-    const nextText = option.nextText || '下一张';
-    const prevText = option.prevText || '上一张';
+    const nextText = option.nextText || '';
+    const prevText = option.prevText || '';
     const thumbnailTitleText = option.thumbnailTitleText || '概览图';
     const firstOneText = option.firstText || '已到第一个';
     const lastOneText = option.lastText || '已到最后一个';
+    const closeText = option.closeText || '';
     // const maxZoomText = option.maxZoomText || '';
     // const minZoomText = option.minZoomText || '';
-    // const fitText = option.fitText || '';
-    // const actualSizeText = option.actualSizeText || '';
-    // const zoomInText = option.zoomInText || '';
-    // const zoomOutText = option.zoomOutText || '';
-    // const rotateLeftText = option.rotateLeftText || '';
-    // const rotateRightText = option.rotateRightText || '';
-    // const downloadText = option.downloadText || '';
-    // const deleteText = option.deleteText || '';
+    // const fitText = option.fitText || imageViewer.ZLang('适应屏幕');
+    // const actualSizeText = option.actualSizeText || imageViewer.ZLang('原始尺寸');
+    // const zoomInText = option.zoomInText || imageViewer.ZLang('放大');
+    // const zoomOutText = option.zoomOutText || imageViewer.ZLang('缩小');
+    // const rotateLeftText = option.rotateLeftText || imageViewer.ZLang('逆时针旋转90°');
+    // const rotateRightText = option.rotateRightText || imageViewer.ZLang('顺时针旋转90°');
+    // const downloadText = option.downloadText || imageViewer.ZLang('下载');
+    // const deleteText = option.deleteText || imageViewer.ZLang('删除');
     // const nextText = option.nextText || '';
     // const prevText = option.prevText || '';
-    // const thumbnailTitleText = option.thumbnailTitleText || '概览图';
+    // const thumbnailTitleText = option.thumbnailTitleText || imageViewer.ZLang('概览图');
     // const firstOneText = option.firstText || '';
     // const lastOneText = option.lastText || '';
+    // const closeText = option.closeText || '';
     if (buttonTooltip) {
         prevBtn.setAttribute('data-content', prevText)
         nextBtn.setAttribute('data-content', nextText)
+        closeBtn.setAttribute('data-content', closeText);
     }
     thumbnailTitle.innerText = thumbnailTitleText
     thumbnailTitle.setAttribute('title', thumbnailTitleText)
@@ -871,6 +897,7 @@ function previewImage (option) {
         // 获取当前的图片元素
         const imageElement = contentWrapper.children[targetImageIndex].querySelector('img');
         imageElement.style.transform = `scale3d(${zoom}, ${zoom}, ${zoom}) rotate(${rotate}deg)`;
+        imageElement.style.backgroundSize = imageViewer.backgroundSize / zoom + 'px';
         if ((offsetY || offsetX) && zoom !== oldZoom) {
             offsetY = offsetY / oldZoom * zoom
             offsetX = offsetX / oldZoom * zoom
@@ -907,7 +934,7 @@ function previewImage (option) {
             } else {
                 updateThumbnailImg()
             }
-        }, 210)
+        }, 250)
     }
     // 放大
     function zoomIn () {
@@ -922,17 +949,6 @@ function previewImage (option) {
             return
         }
         let temZoom = zoom;
-        // if (zoom <= 0.03) {
-        //     temZoom += 0.01
-        // } else if (zoom < 0.05) {
-        //     temZoom = 0.05
-        // } else if (zoom <= 0.3) {
-        //     temZoom += 0.05
-        // } else if (zoom <= 0.45) {
-        //     temZoom = imageViewer.mul(zoom, 1.2)
-        // } else {
-        //     temZoom = imageViewer.mul(zoom, 1.15);
-        // }
         temZoom = imageViewer.mul(zoom, 1.25);
         if (temZoom > maxZoom) {
             temZoom = maxZoom
@@ -955,17 +971,6 @@ function previewImage (option) {
             return
         }
         let temZoom = zoom;
-        // if (zoom <= 0.03) {
-        //     temZoom -= 0.01
-        // } else if (zoom <= 0.05) {
-        //     temZoom = 0.03
-        // } else if (zoom <= 0.3) {
-        //     temZoom = zoom.toFixed(2) - 0.05
-        // } else if (zoom <= 0.45) {
-        //     temZoom = imageViewer.divide(zoom, 1.2)
-        // } else {
-        //     temZoom = imageViewer.divide(zoom, 1.15);
-        // }
         temZoom = imageViewer.divide(zoom, 1.25);
         oldZoom = zoom;
         if (temZoom < minZoom) {
@@ -1006,7 +1011,7 @@ function previewImage (option) {
         setImageTransform()
     }
     // 限制拖动范围
-    function limitDragRange (e) {
+    function limitDragRange (again = false) {
         let flag = false
         const imageElement = contentWrapper.children[index].querySelector('img');
         if (!imageElement) {
@@ -1100,7 +1105,7 @@ function previewImage (option) {
             imageElement.style.cursor = 'move';
         }
         // 开启top、left动画
-        imageElement.style.transition = 'transform .2s ease, top 0.2s ease, left 0.2s ease'
+        imageElement.style.transition = 'transform .2s ease, top 0.2s ease, left 0.2s ease, background'
 
     }
     // 重置图片位置
@@ -1231,7 +1236,7 @@ function previewImage (option) {
             fitScreenOrOriginal('natural')
         }
         setTimeout(function (){
-            imageElement.style.transition = 'transform .2s ease, top 0.2s ease, left 0.2s ease'
+            imageElement.style.transition = 'transform .2s ease, top 0.2s ease, left 0.2s ease, background'
         })
     }
     // 图片加载完毕
@@ -1453,7 +1458,7 @@ function previewImage (option) {
     closeBtn.onclick = closeDialog
     dialog.appendChild(closeBtn);
     // 创建上一张、下一张按钮
-    prevBtn.onclick = function () {
+    function prevFn() {
         if (index === 0) {
             if (loop) {
                 oldIndex = index;
@@ -1477,7 +1482,8 @@ function previewImage (option) {
             showLoading()
         }
     }
-    nextBtn.onclick = function () {
+    prevBtn.onclick = prevFn
+    function nextFn() {
         if (index === images.length - 1) {
             if (loop) {
                 oldIndex = index;
@@ -1501,6 +1507,7 @@ function previewImage (option) {
             showLoading()
         }
     }
+    nextBtn.onclick = nextFn
     if (images.length > 1) {
         dialog.appendChild(prevBtn);
         dialog.appendChild(nextBtn);
@@ -1552,19 +1559,16 @@ function previewImage (option) {
         } else {
             // 展示图标和名称
             const wrap = imageViewer.createElement("div", "preview-img-wrapper", {...imageViewer.preViewStyle.imageWrap, flexDirection: 'column' });
-            const hotZone = imageViewer.createElement("div", "preview-hot-zone active", imageViewer.preViewStyle.hotZone);
+            const hotZone = imageViewer.createElement("div", "preview-hot-zone", imageViewer.preViewStyle.hotZone);
             const icon = imageViewer.createElement("div", "preview-icon", imageViewer.preViewStyle.fileIcon, `#svg-file-icon#:${ext}`);
             const fileName = imageViewer.createElement("div", "preview-file-name", imageViewer.preViewStyle.fileName, imageNames[i])
-            if (fileClickHandler) {
+            // 支持文件预览
+            if (fileClickHandler && imageViewer.clickableFileTypes === 'all' || imageViewer.clickableFileTypes.indexOf(ext) !== -1) {
+                hotZone.style.cursor = 'pointer'
+                hotZone.classList.add('active')
                 hotZone.addEventListener('click', () => {
                     fileClickHandler(index, images[index], imageIds[index], rawImages[index])
                 })
-            }
-            // 支持文件预览
-            const types = ["txt", "tif", "tiff", "xls", "xlsx", "ppt", "pptx", "pdf", "doc", "docx"]
-            if (types.indexOf(ext) !== -1) {
-                hotZone.style.cursor = 'pointer'
-                hotZone.classList.add('active')
             }
             hotZone.appendChild(icon)
             hotZone.appendChild(fileName)
@@ -1591,6 +1595,7 @@ function previewImage (option) {
         rotateRightBtn.setAttribute('data-content', rotateRightText)
         downloadBtn.setAttribute('data-content', downloadText)
         deleteBtn.setAttribute('data-content', deleteText)
+        fitScreenBtn.setAttribute('data-content', actualSizeText)
     }
 
     // 绑定事件
@@ -1614,9 +1619,9 @@ function previewImage (option) {
     }
     if (showDelete) {
         buttonWrap.appendChild(deleteBtn);
-        deleteBtn.onclick = async function () {
+        deleteBtn.onclick = function () {
             try {
-                await deleteHandler(index, images[index], imageIds[index], rawImages[index])
+                deleteHandler(index, images[index], imageIds[index], rawImages[index])
                 // 删除当前图片
                 const currImageElement = contentWrapper.children[index]
                 if (currImageElement) {
@@ -1640,6 +1645,13 @@ function previewImage (option) {
                     setImageTransform()
                     imageSizeCheck()
                 }
+                // 删除后当只剩一张时，隐藏翻页按钮
+                if (images.length === 1) {
+                    prevBtn.style.display = 'none'
+                    nextBtn.style.display = 'none'
+                }
+                // 重置按钮状态
+                updateBtnStatus()
             } catch (e) {
                 const msg = e.message || e.error || e.msg || e
                 if (msg && typeof msg === 'string') {
@@ -1647,7 +1659,6 @@ function previewImage (option) {
                 }
                 console.error('删除失败=>', e || '未知错误')
             }
-
         }
     }
     if (toolbar) {
@@ -1689,7 +1700,9 @@ function previewImage (option) {
     }, 50)
     window.addEventListener('resize', resizeHandler)
     // 监听滚动
+    // 滚轮停止
     let scrollTimer = null
+    let againLimitTimer = null
     const scrollHandler = imageViewer.throttle((e) => {
         if (!dialog) {
             return
@@ -1700,9 +1713,6 @@ function previewImage (option) {
         // ie关闭动画，ie下短时间内重复触发动画会忽大忽小地跳跃
         const isIe = !!window.ActiveXObject || "ActiveXObject" in window
         const imageElement = contentWrapper.children[index].querySelector('img');
-        if (isIe) {
-            imageElement.style.transition = 'transform 0s ease, top 0s ease, left 0s ease'
-        }
         let flag = false
         if (deltaY < 0 && !ctrlKey) {
             // 向下
@@ -1714,12 +1724,25 @@ function previewImage (option) {
             zoomIn()
         }
         if (flag && isIe) {
+            imageElement.style.transition = 'none'
             if (scrollTimer) {
                 clearTimeout(scrollTimer)
             }
             scrollTimer = setTimeout(() => {
-                imageElement.style.transition = 'transform .2s ease, top 0.2s ease, left 0.2s ease'
+                // 恢复动画
+                !isIe && (imageElement.style.transition = 'transform .2s ease, top 0.2s ease, left 0.2s ease, background')
+                scrollTimer = null
             }, 100)
+        }
+        if(flag) {
+            // 再次更新图片位置
+            if (againLimitTimer) {
+                clearTimeout(againLimitTimer)
+            }
+            againLimitTimer = setTimeout(function () {
+                limitDragRange()
+                againLimitTimer = null
+            }, 500)
         }
     }, 50)
     window.addEventListener('mousewheel', scrollHandler, false)
@@ -1760,8 +1783,8 @@ function previewImage (option) {
                 return
             }
             touchStartDistance = Math.sqrt(
-                Math.pow(touch2.pageX - touch1.pageX, 2) +
-                Math.pow(touch2.pageY - touch1.pageY, 2)
+              Math.pow(touch2.pageX - touch1.pageX, 2) +
+              Math.pow(touch2.pageY - touch1.pageY, 2)
             );
             // 关闭top和left动画
             const imageElement = contentWrapper.children[index].querySelector('img');
@@ -1789,8 +1812,8 @@ function previewImage (option) {
                 return
             }
             var distance = Math.sqrt(
-                Math.pow(touch2.pageX - touch1.pageX, 2) +
-                Math.pow(touch2.pageY - touch1.pageY, 2)
+              Math.pow(touch2.pageX - touch1.pageX, 2) +
+              Math.pow(touch2.pageY - touch1.pageY, 2)
             );
             // if (Math.abs(distance - lastDistance) < 5) {
             //     return;
@@ -1822,7 +1845,7 @@ function previewImage (option) {
             touchStartDistance = 0
             // 开启top和left动画
             const imageElement = contentWrapper.children[index].querySelector('img');
-            imageElement.style.transition = 'transform .2s ease, top 0.2s ease, left 0.2s ease'
+            imageElement.style.transition = 'transform .2s ease, top 0.2s ease, left 0.2s ease, background'
             setTimeout(setImageTransform, 210)
         }
     }
@@ -1871,7 +1894,12 @@ function previewImage (option) {
         }
     }
     return {
-        closeDialog
+        closeDialog,
+        next: nextFn,
+        prev: prevFn,
+        zoom: zoomFn,
+        rotateLeft: rotateLeft,
+        rotateRight: rotateRight
     }
 };
 
