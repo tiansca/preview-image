@@ -84,7 +84,7 @@ imageViewer.preViewStyle = {
         position: 'relative',
         userSelect: 'none',
         margin: 0,
-        backgroundImage: `url(${imageViewer.backgroundImage})`,
+        // backgroundImage: `url(${imageViewer.backgroundImage})`,
         // backgroundColor: 'rgb(239, 239, 239)',
         backgroundRepeat: 'repeat',
         backgroundSize: `${imageViewer.backgroundSize}px`
@@ -677,6 +677,8 @@ function previewImage (option) {
     const maxZoom = option.maxZoom || 4;
     const minZoom = option.minZoom || 0.25;
     let images = option.images ? [...option.images] : [];
+    console.log(option, option.close)
+    const showCloseButton = option.close !== undefined ? option.close : true;
     const imageNames = []
     const imageTypes = []
     const imageLoadFlag = []
@@ -835,6 +837,7 @@ function previewImage (option) {
             window.removeEventListener('mouseup', thumbnailMoveEnd);
             window.removeEventListener('mousemove', moveImageThrottle)
             window.removeEventListener('mouseup', moveImageEnd)
+            window.removeEventListener('popstate', closeDialog)
             dialog = null
             imageViewer.createAnimation(dialog, 'out')
             document.documentElement.style.overflow = bodyOverflow
@@ -1244,6 +1247,8 @@ function previewImage (option) {
         const imgWrapElement = e.target?.parentNode
         const i = Array.prototype.indexOf.call(imgWrapElement.parentNode.children, imgWrapElement);
         imageLoadFlag[i] = true
+        e.target.style.backgroundImage = `url(${imageViewer.backgroundImage})`
+        console.log('imageLoaded', i, e.target)
         if (i === Number(index)){
             imageSizeCheck()
             hideLoading()
@@ -1456,7 +1461,10 @@ function previewImage (option) {
     // 插入预览图片的容器，并生成预览图片的元素
     // 创建关闭按钮
     closeBtn.onclick = closeDialog
-    dialog.appendChild(closeBtn);
+    console.log(showCloseButton, 'showCloseButton')
+    if (showCloseButton) {
+        dialog.appendChild(closeBtn);
+    }
     // 创建上一张、下一张按钮
     function prevFn() {
         if (index === 0) {
@@ -1478,6 +1486,7 @@ function previewImage (option) {
         thumbnailClosed = false
         // 按钮状态
         updateBtnStatus()
+        hideLoading()
         if (!imageLoadFlag[index] && imageViewer.isImg(imageTypes[index])) {
             showLoading()
         }
@@ -1503,6 +1512,7 @@ function previewImage (option) {
         thumbnailClosed = false
         // 按钮状态
         updateBtnStatus()
+        hideLoading()
         if (!imageLoadFlag[index] && imageViewer.isImg(imageTypes[index])) {
             showLoading()
         }
@@ -1893,6 +1903,8 @@ function previewImage (option) {
             operateButton[i].classList.add('preview-tooltip')
         }
     }
+    // 监听url变化
+    window.addEventListener('popstate', closeDialog)
     return {
         closeDialog,
         next: nextFn,
