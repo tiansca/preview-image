@@ -60,7 +60,8 @@ const { closeDialog } = previewImage({
     prevText: 'Prev', //previous prompt, defaults to '下一张'
     firstText: "It's already the first one" , //first prompt, defaults to '已到第一个'
     lastText: "It's already the last one", //last prompt, defaults to '已到最后一个'
-    closeText: 'Close' //close prompt, defaults to '关闭'
+    closeText: 'Close', //close prompt, defaults to '关闭'
+    canHideButtons: true, //whether to hide the button when clicked the image, defaults to false
 })
 closedialog ()//This method can close the preview window, such as listening to the return key on the mobile side, in the case of the return key intercept, the return key can be called to close the preview window
 

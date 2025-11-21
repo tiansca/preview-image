@@ -743,6 +743,7 @@ function previewImage (option) {
     const closeHandler = option.onClose || null
     const fileClickHandler = option.onFileClick || null
     imageViewer.clickableFileTypes = option.clickableFileTypes || 'all'
+    const canHideButtons = option.canHideButtons !== undefined ? option.canHideButtons : false;
     // imageViewer.clickableFileTypes = option.clickableFileTypes || ['pdf']
     let oldIndex = index;
     let zoom = 1
@@ -1069,10 +1070,14 @@ function previewImage (option) {
             e.stopPropagation()
         }
     }
+    let hasMove =  false
+    let oldOffsetX, oldOffsetY
     function moveImage (e, _scale = 1, source = '') {
         if (!startX || !startY || fullyVisible || (thumbnailDragging && source !== 'thumbnail')) {
             return
         }
+        oldOffsetX = offsetX
+        oldOffsetY = offsetY
         const imageElement = contentWrapper.children[index].querySelector('img');
         offsetX = (e.clientX !== undefined ? e.clientX : e.pageX) / _scale - startX;
         offsetY = (e.clientY !== undefined ? e.clientY : e.pageY) / _scale - startY;
@@ -1088,14 +1093,24 @@ function previewImage (option) {
             e.preventDefault()
             e.stopPropagation()
         }
+        // 判断位置有无变化
+        if ((oldOffsetX && offsetX !== oldOffsetX) || (oldOffsetY && offsetY !== oldOffsetY)) {
+          hasMove = true
+        }
     }
-    function moveImageEnd (e, _scale = 1) {
+    let toggleButtonVisible = imageViewer.throttle(toggleButtonVisibleHandler, 300)
+    function moveImageEnd (e, setButtonVisible = true) {
         // if (!imageViewer.isImg(imageTypes[index])) {
         //     return;
         // }
         // if (_scale < 0) {
         //     moveImage(e, _scale)
         // }
+        // 判断距离
+        if (!hasMove && setButtonVisible) {
+          toggleButtonVisible()
+        }
+        hasMove = false
         startX = 0;
         startY = 0;
         const imageElement = contentWrapper.children[index].querySelector('img');
@@ -1394,7 +1409,9 @@ function previewImage (option) {
         thumbnailDragging = false
         thumbnailMoveStartX = 0
         thumbnailMoveStartY = 0
-        moveImageEnd(e)
+        if (!e.target.classList.contains('preview-img')) {
+          moveImageEnd(e, false)
+        }
     }
 
     // 设置缩略图组件相对窗口位置
@@ -1863,6 +1880,42 @@ function previewImage (option) {
     content.addEventListener('touchstart', touchStartHandler)
     content.addEventListener('touchmove', touchMoveHandler)
     content.addEventListener('touchend', touchEndHandler)
+    content.addEventListener('mousedown', contentMouseDownHandler)
+    content.addEventListener('mouseup', contentMouseUpHandler)
+    let start_X, start_Y
+    function contentMouseDownHandler(e) {
+      start_X = e.clientX;
+      start_Y = e.clientY;
+    }
+    function contentMouseUpHandler(e) {
+      const distanceX = e.clientX - start_X;
+      const distanceY = e.clientY - start_Y;
+      if (Math.abs(distanceX) < 5 && Math.abs(distanceY) < 5) {
+        toggleButtonVisible()
+      }
+    }
+    let buttonVisible =  true
+
+    function toggleButtonVisibleHandler() {
+      console.log('toggleButtonVisible')
+      if (!canHideButtons) {
+        return
+      }
+      const buttons = dialog.querySelectorAll('.preview-operate-button, .preview-button-wrap, .preview-index')
+      if (buttonVisible) {
+        // 隐藏按钮
+        for(let i = 0; i < buttons.length; i++) {
+          buttons[i].style.visibility = 'hidden'
+        }
+        buttonVisible = false
+      } else {
+        // 显示按钮
+        for(let i = 0; i < buttons.length; i++) {
+          buttons[i].style.visibility = 'visible'
+        }
+        buttonVisible = true
+      }
+    }
 
     // 插入预览
     if (thumbnail) {

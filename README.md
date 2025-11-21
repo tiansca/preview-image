@@ -63,7 +63,8 @@ const { closeDialog } = previewImage({
     prevText: 'prev', // 上一张提示，默认为’上一张‘
     firstText: "It's already the first one", // 第一张提示，默认为’已到第一个‘
     lastText: "It's already the last one", // 最后一张提示，默认为’已到最后一个‘
-    closeText: "Close" // 关闭提示，默认为’关闭‘
+    closeText: "Close", // 关闭提示，默认为’关闭‘
+    canHideButtons: true, // 是否允许在点击图片时隐藏按钮(再次点击图片显示按钮)，默认为false
 })
 
 closeDialog() // 该方法可以关闭预览窗口，比如在移动端监听返回键，在返回键拦截的情况下，点击返回键可以调用该方法关闭预览窗口
