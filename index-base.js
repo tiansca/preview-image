@@ -1108,7 +1108,11 @@ function previewImage (option) {
         // }
         // 判断距离
         if (!hasMove && setButtonVisible) {
-          toggleButtonVisible()
+          // target
+            const target = e.target
+            if (!target.classList.contains('preview-operate-button')) {
+                toggleButtonVisible()
+            }
         }
         hasMove = false
         startX = 0;
